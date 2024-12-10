@@ -1,6 +1,13 @@
-spring:
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+voiceover:
+  selenium:
+    firefoxProfilePath: "C:\\Users\\Dmitrii\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\jawq71tv.default-release"
+    downloadDir: "D:\\rabbitConsumerFiles"
+  site:
+    url: "https://sintezator-rechi.ru/"
+    voice: "Филипп"
+    speed: "1.2"
+    initialWaitSeconds: 10
+    retryWaitSeconds: 10
+  output:
+    exchange: "links_exchange"
+    routingKey: "links_rk"
