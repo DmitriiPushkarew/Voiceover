@@ -11,4 +11,5 @@ public class RabbitMQConfig {
     public Queue voiceoverQueue() {
         return new Queue("voiceover_queue", true);
     }
+
 }

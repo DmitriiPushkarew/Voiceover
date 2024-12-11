@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ScenarioMessageConsumer {
-
     private final ObjectMapper objectMapper;
-    private final ScenarioMessageProcessorServiceImpl processorService;
+    private final VoiceoverMessageProcessorServiceImpl processorService;
 
     @RabbitListener(queues = "voiceover_queue")
     public void processMessage(String message) {
         log.info("Received message from voiceover_queue: {}", message);
+
         try {
             ScenarioMessageForVoiceoverDto dto = objectMapper.readValue(message, ScenarioMessageForVoiceoverDto.class);
             processorService.processScenarioMessageContent(dto);

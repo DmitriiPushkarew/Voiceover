@@ -12,16 +12,16 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class WebDriverFactoryImpl implements WebDriverFactory {
-
-    @Value("${voiceover.selenium.firefoxProfilePath}")
+    @Value("${voiceover.selenium.firefox-profile-path}")
     private String firefoxProfilePath;
 
-    @Value("${voiceover.selenium.downloadDir}")
+    @Value("${voiceover.selenium.download-dir}")
     private String downloadDir;
 
     @Override
     public WebDriver createWebDriver() {
         FirefoxOptions options = new FirefoxOptions();
+
         options.addArguments("-profile", firefoxProfilePath);
         options.addPreference("browser.download.folderList", 2);
         options.addPreference("browser.download.dir", downloadDir);
@@ -29,6 +29,8 @@ public class WebDriverFactoryImpl implements WebDriverFactory {
         options.addPreference("browser.download.viewableInternally.enabledTypes", "");
         options.addPreference("browser.download.forbid_open_with", true);
         options.addPreference("browser.helperApps.neverAsk.saveToDisk", "audio/mpeg");
+
         return new FirefoxDriver(options);
     }
+
 }

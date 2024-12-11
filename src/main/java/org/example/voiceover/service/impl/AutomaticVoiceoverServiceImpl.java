@@ -20,7 +20,6 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class AutomaticVoiceoverServiceImpl implements AutomaticVoiceoverService {
-
     private final WebDriverFactory webDriverFactory;
 
     private WebDriver driver;
@@ -34,27 +33,30 @@ public class AutomaticVoiceoverServiceImpl implements AutomaticVoiceoverService 
     @Value("${voiceover.site.speed}")
     private String speedValue;
 
-    @Value("${voiceover.site.initialWaitSeconds}")
+    @Value("${voiceover.site.initial-wait-seconds}")
     private int initialWaitSeconds;
 
-    @Value("${voiceover.site.retryWaitSeconds}")
+    @Value("${voiceover.site.retry-wait-seconds}")
     private int retryWaitSeconds;
 
-    @Value("${voiceover.selenium.downloadDir}")
+    @Value("${voiceover.selenium.download-dir}")
     private String downloadDir;
 
     @Override
     public String processVoiceover(String text) {
         String downloadedFilePath = null;
+
         try {
             initDriver();
             driver.get(siteUrl);
             enterText(text);
             selectSpeed(speedValue);
             selectVoice(voiceName);
+
             Set<String> beforeDownloadFiles = listFiles(downloadDir);
             clickVoiceButton();
             waitForDownloadButton();
+
             if (isDownloadButtonPresent()) {
                 clickDownloadButton();
                 downloadedFilePath = waitForFileDownload(beforeDownloadFiles);
@@ -66,6 +68,7 @@ public class AutomaticVoiceoverServiceImpl implements AutomaticVoiceoverService 
         } finally {
             closeBrowser();
         }
+
         return downloadedFilePath;
     }
 
@@ -176,4 +179,5 @@ public class AutomaticVoiceoverServiceImpl implements AutomaticVoiceoverService 
             driver = null;
         }
     }
+
 }
