@@ -5,7 +5,7 @@ import lombok.Data;
 
 
 @Data
-public class VoiceoverMessageDto {
+public class ScenarioMessageForVoiceoverDto {
 
     @JsonProperty("answerId")
     private Long answerId;

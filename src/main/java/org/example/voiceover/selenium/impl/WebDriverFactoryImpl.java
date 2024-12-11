@@ -1,17 +1,17 @@
-package org.example.voiceover.config;
+package org.example.voiceover.selenium.impl;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.voiceover.selenium.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @RequiredArgsConstructor
-public class VoiceoverWebDriverFactory {
+public class WebDriverFactoryImpl implements WebDriverFactory {
 
     @Value("${voiceover.selenium.firefoxProfilePath}")
     private String firefoxProfilePath;
@@ -19,6 +19,7 @@ public class VoiceoverWebDriverFactory {
     @Value("${voiceover.selenium.downloadDir}")
     private String downloadDir;
 
+    @Override
     public WebDriver createWebDriver() {
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments("-profile", firefoxProfilePath);
@@ -28,7 +29,6 @@ public class VoiceoverWebDriverFactory {
         options.addPreference("browser.download.viewableInternally.enabledTypes", "");
         options.addPreference("browser.download.forbid_open_with", true);
         options.addPreference("browser.helperApps.neverAsk.saveToDisk", "audio/mpeg");
-
         return new FirefoxDriver(options);
     }
 }
